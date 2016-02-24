@@ -13,14 +13,13 @@ io.on('connection', function(socket) {
 	socket.on('message', function(message) {
 		console.log('message recieved ' + message.text);
 		io.emit('message', message);
-	});
-
-	//timestamp property
-	message.timestamp = moment().valueOf();
+			//timestamp property to be emitted
+			message.timestamp = moment().valueOf();
+		});
 
 	socket.emit('message', {
 		text: "Welcome to the chat application.",
-		timestamp: moment().valueOf();
+		timestamp: moment().valueOf()
 	});
 });
 
