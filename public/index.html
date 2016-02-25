@@ -1,23 +1,44 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Socket io basics</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- <link rel="stylesheet" href="css/main.css"> -->
-    </head>
-    <body>
-        <h1>Join Chat</h1>
-        <form action="/chat.html">
-            <label>Display Name</label>
-            <input type="text" name="name" autofocus></input>
-            <input type="submit" value="Join Chat"></input>
-
-            <label>Room name</label>
-            <input type="text" name="room"></input>
-        </form>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Socket io basics</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="vertical-center">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 well">
+                    <h1>Join Chat</h1>
+                    <form action="/chat.html">
+                        <div class="form-group">
+                            <label>Display Name</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input type="text" name="name" class="form-control" autofocus></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Room name</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-comment"></i>
+                                </span>
+                                <input type="text" name="room" class="form-control"></input>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block" value="Join Chat"></input>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
