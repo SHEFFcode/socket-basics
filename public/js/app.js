@@ -10,7 +10,7 @@ socket.on('connect', function() {
 	console.log('connected');
 	socket.emit('joinRoom', {
 		name: name,
-		rom: room
+		room: room
 	});
 });
 
