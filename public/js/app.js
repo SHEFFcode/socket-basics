@@ -12,6 +12,7 @@ socket.on('connect', function() {
 		name: name,
 		room: room
 	});
+	
 });
 
 socket.on('message', function(message) {

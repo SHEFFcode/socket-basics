@@ -41,12 +41,6 @@ mongo.connect('mongodb://sheff:123@ds019078.mlab.com:19078/chat', function(err, 
 	io.on('connection', function(socket) {
 		var chat = db.collection('chats');
 		console.log('user connected via socket.io');
-		chat.find().limit(100).sort({_id:1}).toArray(function(err, res) {
-			if (err) {
-				throw err
-			}
-
-		});
 
 		socket.on('disconnect', function() {
 			var userData = clientInfo[socket.id];
@@ -63,19 +57,6 @@ mongo.connect('mongodb://sheff:123@ds019078.mlab.com:19078/chat', function(err, 
 
 		//Database
 
-		socket.on('input', function(data) {
-			var name = data.name;
-			var message = data.message;
-
-			if (name === '' || message === '') {
-				console.log('Please enter user and message');
-			} else {
-				chat.insert({name: name, message: message}, function() {
-					console.log('info saved');
-				})
-			}
-		});
-
 		socket.on('clear', function(data) {
 			chat.remove({}, function() {
 				console.log('info cleared');
@@ -90,6 +71,18 @@ mongo.connect('mongodb://sheff:123@ds019078.mlab.com:19078/chat', function(err, 
 				text: req.name + ' has joined!',
 				timestamp: moment().valueOf()
 			});
+			chat.find({room: clientInfo[socket.id].room}).limit(100).sort({_id:1}).toArray(function(err, res) {
+				if (err) {
+					throw err
+				}
+				for (i = 0; i < res.length; i++) {
+					socket.emit('message', {
+						name: res[i].name,
+						text: res[i].message,
+						timestamp: res[i].time
+					});
+				}
+			});
 		});
 
 		socket.on('message', function(message) {
@@ -102,11 +95,12 @@ mongo.connect('mongodb://sheff:123@ds019078.mlab.com:19078/chat', function(err, 
 			var userName = message.name;
 			var userMessage = message.text;
 			var userRoom = clientInfo[socket.id].room;
+			var userTime = moment().valueOf();
 
 			if (userName === '' || userMessage === '') {
 				console.log('Please enter user and message');
 			} else {
-				chat.insert({name: userName, message: userMessage, room: userRoom}, function() {
+				chat.insert({name: userName, message: userMessage, room: userRoom, time: userTime}, function() {
 					console.log('info saved');
 				})
 			};
